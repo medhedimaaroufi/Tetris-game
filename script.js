@@ -28,7 +28,7 @@ window.addEventListener('DOMContentLoaded',() => {
 
     const grid = createGrid();
     let squares = Array.from(grid.querySelectorAll('div'));
-    squares[0].classList.add('block');
+
     
     const lTetromino = [
         [1, GRID_WIDTH + 1, GRID_WIDTH * 2 + 1, 2],
@@ -66,17 +66,35 @@ window.addEventListener('DOMContentLoaded',() => {
       ]
     
     const theTetrominoes = [lTetromino, zTetromino, tTetromino, oTetromino, iTetromino]
-
-
-    for (let i = 0; i < 4; i++) {
-        let position=Tetromino[0][i]
-        squares[position].style.backgroundImage=colores[4];
-        squares[position].classList.add('block');
+    
+    let orient=0;
+    function draw(current, tetromino) {
+      for (let i = 0; i < 4; i++) {
+        let position=theTetrominoes[tetromino][orient][i]
+        squares[current+position].style.backgroundImage=colores[tetromino];
+        squares[current+position].classList.add('block');
+      }
     }
 
+    function remove(current,tetromino) {
+      for (let i = 0; i < 4; i++) {
+        let position=theTetrominoes[tetromino][orient][i]
+        squares[current+position].style.backgroundImage = 'none' ;
+        squares[current+position].classList.remove('block');
+      }
+    }
+
+    let random=Math.floor(Math.random()*theTetrominoes.length)
     
+
+    let col=4;
+    let line=5;
+    draw(line*GRID_WIDTH+col,random);
+    remove(line*GRID_WIDTH+col,random);
+    line++;
+    draw(line*GRID_WIDTH+col,random);
     
-    console.log(squares);
+    console.log(random)
 
 
 
