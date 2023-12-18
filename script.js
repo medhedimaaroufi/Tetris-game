@@ -18,6 +18,11 @@ window.addEventListener('DOMContentLoaded',() => {
             let child=document.createElement('div');
             grid.appendChild(child);
         }
+        for (let i = 0; i < GRID_WIDTH; i++) {
+          let child=document.createElement('div');
+          child.classList.add('endGrid');
+          grid.appendChild(child);
+        }
         var previous=document.querySelector('.previous-grid');
         for (let i = 0; i < 16; i++) {
             let element = document.createElement('div');
@@ -66,8 +71,8 @@ window.addEventListener('DOMContentLoaded',() => {
       ]
     
     const theTetrominoes = [lTetromino, zTetromino, tTetromino, oTetromino, iTetromino]
-    
     let orient=0;
+    
     function draw(current, tetromino) {
       for (let i = 0; i < 4; i++) {
         let position=theTetrominoes[tetromino][orient][i]
@@ -84,18 +89,70 @@ window.addEventListener('DOMContentLoaded',() => {
       }
     }
 
+    function control(e) {
+      if (e.keyCode===37)   //ArrowLeft
+        moveLeft()
+      if (e.keyCode===38)   //ArrowUp
+        Rotate()
+      if (e.keyCode===39)   //ArrowRight
+        moveRight()
+      if (e.keyCode===40)   //ArrowDown 
+        moveDown()
+    }
+
+    document.addEventListener('keydown', control)
+
+    
     let random=Math.floor(Math.random()*theTetrominoes.length)
-    
-
-    let col=4;
-    let line=5;
-    draw(line*GRID_WIDTH+col,random);
-    remove(line*GRID_WIDTH+col,random);
-    line++;
+    let col=3;
+    let line=0;
     draw(line*GRID_WIDTH+col,random);
     
-    console.log(random)
+    
+    function moveDown(){
+      remove(line*GRID_WIDTH+col,random);
+      line++;
+      draw(line*GRID_WIDTH+col,random);
+    }
+
+    function moveLeft() {
+      remove(line*GRID_WIDTH+col,random);
+      col--;
+      draw(line*GRID_WIDTH+col,random);
+    }
+    
+    function moveRight() {
+      remove(line*GRID_WIDTH+col,random);
+      col++;
+      draw(line*GRID_WIDTH+col,random);
+    }
+
+    function Rotate() {
+      remove(line*GRID_WIDTH+col,random);
+      orient++;
+      orient%=4;
+      draw(line*GRID_WIDTH+col,random);
+    }
+
+
+    
+    let x=1;
+    let Start=document.querySelector('.start');
+    Start.addEventListener('click',function () {
+      var timerId = setInterval(moveDown, 1000);
+      Start.setAttribute('value','Restart');
+      x++;
+      if (x>2) {
+        location.reload();
+      }
+    });
 
 
 
+    //TO DO: 18-12-2023
+    //hot fam talga fam
+    //contour il grid
+    //next tetromino
+    //button pause
+    
 })
