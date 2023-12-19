@@ -4,18 +4,34 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Tetris</title>
+        <script src="jquery.js"></script>
         <script src="script.js"></script>
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
-        <main>
-            <div class="grid"></div>
-            <div class="dashboard">
-                <div class="previous-grid"></div>
-                <input type="button" value="Start" class="start button">
-                <input type="button" value="Pause" class="pause button">
+        <div class="Rules">
+            <span>RULES</span>
+            <p class="rules"> Please use the <b class="key">UP</b> key to rotate your tetromino, and <b class="key">LEFT</b>
+              and <b class="key">RIGHT</b> to <br> move across the board. Pressing <b class="key">DOWN</b> will speed up the
+              tetromino.</p>
+            <input type="button" value="Close" class="close button">
+        </div>
+        <div class="Game">
+            <div>
+                <span class="welcome">HELLO WORLD</span><BR>
+                <SPAN>TETRIS</SPAN>
             </div>
-        </main>
+            <main>
+                <div class="grid"></div>
+                <div class="dashboard">
+                    <div class="previous-grid"></div><br>
+                    
+                    <div class="buttons">
+                        <input type="button" value="PLAY" class="start button">
+                    </div>
+                </div>
+            </main>
+        </div>
     </body>
 </html>
 
