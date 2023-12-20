@@ -123,7 +123,7 @@ window.addEventListener('DOMContentLoaded',() => {
           Rotate()
         if (e.keyCode===39)   //ArrowRight
           moveRight()
-        if (e.keyCode===40)   //ArrowDown 
+        if (e.keyCode===32 || e.keyCode===40)   //ArrowDown or space
           moveDown()
         }
     }
@@ -150,44 +150,83 @@ window.addEventListener('DOMContentLoaded',() => {
       remove(line*GRID_WIDTH+col,random);
       line++;
       draw(line*GRID_WIDTH+col,random);
-      freeze();
+      //checkRow(); 
+      freeze();}
+    
+    function checkCollision(direction) {
+      for (let i = 0; i < 4; i++) {
+        const index = theTetrominoes[random][orient][i];
+        const nextPosition = line * GRID_WIDTH + col + index;
+    
+        // Check collision with walls
+        const isAtLeftEdge = nextPosition % GRID_WIDTH === 0;
+        const isAtRightEdge = (nextPosition + 1) % GRID_WIDTH === 0;
+    
+        // Check collision with other tet
+        const isOccupied = squares[nextPosition].classList.contains('Freezed');
+    
+        switch (direction) {
+          case 'left':
+            if (isAtLeftEdge || isOccupied) {
+              return true; // Collision with left wall or other tet
+            }
+            break;
+          case 'right':
+            if (isAtRightEdge || isOccupied) {
+              return true; // Collision with right wall or other tet
+            }
+            break;
+
+        }
+      }
+    
+      return false; // No risk
     }
 
-    function moveLeft() {
-      
-      let sumleft=0;
-      for(let i=0;i<4;i++){
-        let index=theTetrominoes[random][orient][i];
-        sumleft+=((line*GRID_WIDTH+col+index)%GRID_WIDTH>0);
-      }
-      let stopLeft=(sumleft==4);
-      if (stopLeft){
-        remove(line*GRID_WIDTH+col,random);
-        col--;
-        draw(line*GRID_WIDTH+col,random);
-      }
-    }
-
-    function moveRight() {
-      let sumright=0;
-      for(let i=0;i<4;i++){
-        let index=theTetrominoes[random][orient][i];
-        sumright+=((line*GRID_WIDTH+col+index)%GRID_WIDTH<9);
-      }
-      let stopRight=(sumright==4);
-      if (stopRight){
-        remove(line*GRID_WIDTH+col,random);
-        col++;
-        draw(line*GRID_WIDTH+col,random);
-      }
-    }
-
-    function Rotate() {
+    function moveRight() { 
       remove(line*GRID_WIDTH+col,random);
-      orient++;
-      orient%=4;
+      if(!(checkCollision('right'))){
+        col++ ; }
       draw(line*GRID_WIDTH+col,random);
+   }
+  
+   function moveLeft() { 
+    remove(line*GRID_WIDTH+col,random);
+    if(!(checkCollision('left'))){
+    col-- ;}
+    draw(line*GRID_WIDTH+col,random);
+   }
+
+   
+   function checkCollisionAfterRotation() {
+    const nextOrientation = (orient + 1) % 4; // Calculate the next orientation after rotation
+  
+    for (let i = 0; i < 4; i++) {
+      const index = theTetrominoes[random][nextOrientation][i];
+      const nextPosition = line * GRID_WIDTH + col + index;
+  
+      // Check collision with walls
+      const isAtLeftEdge = nextPosition % GRID_WIDTH === 0;
+      const isAtRightEdge = (nextPosition + 1) % GRID_WIDTH === 0;
+  
+      // Check collision with other tet
+      const isOccupied = squares[nextPosition].classList.contains('Freezed');
+  
+      if (isAtLeftEdge || isAtRightEdge || isOccupied) {
+        return true; // Collision detected
+      }
     }
+  
+    return false; // No risque 
+  }
+  
+   function Rotate(){
+    remove(line*GRID_WIDTH+col,random);
+    if(!checkCollisionAfterRotation()){
+      orient = (orient + 1) % 4;
+    }
+    draw(line*GRID_WIDTH+col,random);
+   }
 
 
     //Start & Restart
@@ -232,13 +271,50 @@ window.addEventListener('DOMContentLoaded',() => {
       
     }
 
+    function filterRow(row) {
+      for (let index = 0; index < GRID_WIDTH; index++) {
+        squares[row*GRID_WIDTH+index].remove();
+
+        const div= document.createElement('div');
+        var existingChild = grid.firstChild;
+        grid.insertBefore(div, existingChild);
+      }
+    }
+    
+
+
+   function checkRow() {
+    let l = 0 ;
+    
+        for (let index = 0; index < 4; index++){
+          for (let i = 0; i < GRID_SIZE; i += GRID_WIDTH) {
+          const row = Array.from(squares.slice(i, i + GRID_WIDTH));
+          if (row.every((square) => square.classList.contains('Freezed'))) {
+            // Remove the row and move the above rows down
+            row.forEach((square) => {
+              square.style.backgroundImage = 'none';
+              square.classList.remove('Freezed');
+              l++;
+            });
+            //squares = [...squares.slice(0, i), ...squares.slice(i + GRID_WIDTH)];
+            //squares.forEach((square) => grid.insertBefore(square,grid.children[0]));
+            const squaresRemoved = squares.splice(i,GRID_WIDTH) ;
+            squares=squaresRemoved.concat(squares) ;
+            squares.forEach(cell=>grid.appendChild(cell)) ; 
+          }
+        }
+        
+      }
+      return l/10;
+    }
+
     function freeze(){
       let stop=theTetrominoes[random][orient].some(index => (squares[(line+1)*GRID_WIDTH+col+index].className=='endGrid' || squares[(line+1)*GRID_WIDTH+col+index].className=='Freezed'));
       if (stop){
         theTetrominoes[random][orient].forEach(index => {
           squares[line*GRID_WIDTH+col+index].setAttribute('class','Freezed');
-          console.log(squares[line*GRID_WIDTH+col+index]);
         });
+        score(checkRow());
         line=0
         col=4
         orient=0
@@ -249,11 +325,37 @@ window.addEventListener('DOMContentLoaded',() => {
       }
     }
     
-    console.log(previous)
-    
 
 
-    //TO DO: 19-12-2023
+    let myScore=parseInt($('#score').val(),10);
+    let myLines=0
+    function score(l) {
+      myLines+=l;
+      switch (l) {
+        case 1:
+          myScore+=40;
+          break;
+        case 2:
+          myScore+=100;
+          break;
+        case 3:
+          myScore+=300;
+          break;
+        case 4:
+          myScore+=1200;
+          break;
+      }
+      $('#score').val(myScore);
+      $('#lines').val(myLines);
+    }
+
+
+
+    //TO DO: 20-12-2023
     //Game Over
-    //check Row
-})
+    //translate
+    //rotate
+
+}) 
+
+

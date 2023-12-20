@@ -39,7 +39,7 @@ span{
     background: rgba(82, 79, 79, 0.3);
     border: 1px solid rgba(248, 247, 247, 0.34);
     width: 50%;
-    height: 30%;
+    height: auto;
     color: antiquewhite;
     font-size: x-large;
     text-align: center;
@@ -48,6 +48,26 @@ span{
     position: absolute;
     top: 25%;
     left: 25%;
+    font-family: "Montserrat", sans-serif;
+}
+
+img{
+    width: 50px;
+    height: 50px;
+    margin-bottom: -15px;
+    border-radius: 15%;
+}
+
+.up{
+    rotate: 90deg;
+}
+
+.right{
+    rotate: 180deg;
+}
+
+.space{
+    width: 120px;
 }
 
 .grid{
@@ -128,6 +148,34 @@ span{
     height: 30px;
     border: 1px solid rgb(150, 148, 148);
     border-radius: 10px;
+}
+
+.score{
+    font-family: "Montserrat", sans-serif;
+    font-size: 1.6rem;
+    margin: auto;
+    font-weight: 100;
+    color: rgb(203, 190, 174);
+}
+
+#score{
+    border: 0px;
+    background: transparent;
+    color: rgb(239, 239, 238);
+    font-family: "Montserrat", sans-serif;
+    font-size: 3.72rem;
+    text-align: center;
+    width: 129px;
+}
+
+#lines{
+    border: 0px;
+    background: transparent;
+    color: rgb(239, 239, 238);
+    font-family: "Montserrat", sans-serif;
+    font-size: 1.6rem;
+    text-align: center;
+    width: 129px;
 }
 
 .button{
