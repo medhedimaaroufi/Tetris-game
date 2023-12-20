@@ -189,3 +189,26 @@ img{
     font-weight: 300;
 
 }
+
+
+.animated-text {
+    font-weight: bold;
+    animation: fadeIn 1s ease-in-out;
+}
+.animated-text2 {
+    font-weight: bold;
+    animation: fadeIn 2s ease-in;
+}
+.animated-text3 {
+    font-weight: bold;
+    animation: fadeIn 3s ease-in;
+}
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
