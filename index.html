@@ -15,28 +15,37 @@
             <p class="rules"> Please use the <img src="images/button.png" alt="up" class="up"> key to rotate your tetromino. <br><br> <img src="images/button.png" alt="left" class="left">
               and <img src="images/button.png" alt="right" class="right"> to move across the board. <br><br> Pressing <img src="images/button.space.png" alt="space" class="space"> will speed up the
               drop.</p>
-            <input type="button" value="Close" class="close button">
+            <input type="button" value="Close" class="close button gameOverbtn ">
         </div>
         <div class="Game">
+            
             <div>
                 <span class="animated-text">HELLO WORLD</span><BR>
                 <SPAN class="animated-text2">TETRIS</SPAN>
             </div>
+            
             <main>
-                <div class="grid animated-text"></div>
-                <div class="dashboard animated-text3">
-                    <div class="previous-grid animated-text2"></div><br>
-                    <div>
-                        <span class="score">SCORE</span>
-                        <input type="text" name="score" id="score" value="0" disabled>
-                        <span class="score">Your lines </span>
-                        <input type="text" name="lines" id="lines" value="0" disabled>
-                    </div>
-                    <div class="buttons">
-                        <input type="button" value="PLAY" class="start button">
+                <div class="load-level animated-text"></div><br>
+                <div class="main">
+                    <div class="grid animated-text"></div>
+                    <div class="dashboard animated-text2">
+                        <div class="previous-grid animated-text2"></div><br>
+                        <div>
+                            <span class="score">SCORE</span>
+                            <input type="text" name="score" id="score" value="0" disabled>
+                            <span class="score">Your lines </span>
+                            <input type="text" name="lines" id="lines" value="0" disabled>
+                        </div>
+                        <div class="buttons">
+                            <input type="button" value="PLAY" class="start button gameOverbtn ">
+                        </div>
                     </div>
                 </div>
             </main>
+        </div>
+        <div class="gameOver">
+            <span>Ctrl+Z not available in <span style="color: rgb(247, 4, 4);">real</span> life </span><br><br>
+            <span style="font-weight:1000;">Game Over</span>
         </div>
     </body>
 </html>

@@ -6,6 +6,13 @@ html{
 
 main{
     display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+}
+
+main .main{
+    display: flex;
     justify-content: center;
     align-content: center;
 }
@@ -29,11 +36,6 @@ span{
 
 .Rules{
     border-radius: 10px;
-    backdrop-filter: blur(5.5px);
-    -webkit-backdrop-filter: blur(5.5px);
-    background: rgb(85, 85, 74);
-    border: 1px solid rgba(255,255,255,0.01);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
     background: rgba(82, 79, 79, 0.3);
@@ -70,6 +72,41 @@ img{
     width: 120px;
 }
 
+.load-level{
+    height: 10px;
+    width: 100%;
+    border: red 1px;
+    border-radius: 10px;
+    box-shadow: 0 4px 30px rgba(35,35,35,0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(4px);
+    background: rgba(255,255,255,0.30);
+    border: 1px solid rgba(255,255,255,0.34);
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.load-level div{
+    background-color: rgb(46, 189, 42);
+    width: 6.66667%;
+    height: auto;
+}
+
+
+.load-level .n0{
+    border-radius: 10PX 0PX 0px 10px;
+}
+
+.load-level .n15{
+    border-radius:  0px 10px 10px 0px ;
+}
+
+.load-level .n16{
+    border-radius: 10px ;
+}
+
+
+
 .grid{
     box-shadow: 0 4px 30px rgba(35,35,35,0.1);
     backdrop-filter: blur(10px);
@@ -83,6 +120,7 @@ img{
     border-radius: 10px;
     margin: 5px;
 }
+
 .grid div{
     width: 30px;
     height: 30px;
@@ -90,6 +128,8 @@ img{
     border-radius: 10px;
 
 }
+
+
 
 .grid .block{
     border: 1px solid rgb(0, 0, 0);
@@ -106,17 +146,13 @@ img{
 }
 
 .dashboard{
-    backdrop-filter: blur(5.5px);
-    -webkit-backdrop-filter: blur(5.5px);
-    background: rgba(255,255,255,0.75);
-    border: 1px solid rgba(255,255,255,0.01);
     box-shadow: 0 4px 30px rgba(35,35,35,0.1);
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
     background: rgba(255,255,255,0.30);
     border: 1px solid rgba(255,255,255,0.34);
     border-radius: 10px;
-    width: 170px;
+    width: 200px;
     margin: 5px;
     justify-content: center;
     align-content: center;
@@ -124,10 +160,6 @@ img{
 
 .previous-grid{
     border-radius: 10px;
-    backdrop-filter: blur(5.5px);
-    -webkit-backdrop-filter: blur(5.5px);
-    background: rgb(85, 85, 74);
-    border: 1px solid rgba(255,255,255,0.01);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
@@ -137,7 +169,7 @@ img{
     height: 129px;
     display: flex;
     flex-wrap: wrap;
-    margin-left: 12%;
+    margin-left: 18%;
     margin-top: 10%;
 }
 
@@ -165,7 +197,7 @@ img{
     font-family: "Montserrat", sans-serif;
     font-size: 3.72rem;
     text-align: center;
-    width: 129px;
+    width: 170px;
 }
 
 #lines{
@@ -190,19 +222,21 @@ img{
 
 }
 
-
 .animated-text {
     font-weight: bold;
     animation: fadeIn 1s ease-in-out;
 }
+
 .animated-text2 {
     font-weight: bold;
     animation: fadeIn 2s ease-in;
 }
+
 .animated-text3 {
     font-weight: bold;
-    animation: fadeIn 3s ease-in;
+    animation: fadeIn 2.5s ease-in;
 }
+
 @keyframes fadeIn {
     0% {
         opacity: 0;
@@ -210,5 +244,64 @@ img{
     100% {
         opacity: 1;
     }
+}
+
+.gameOver {
+    animation: wavy 1s infinite;
+}
+
+.gameOverbtn {
+    animation: pulse 0.75s infinite;
+    
+}
+
+@keyframes pulse {
+    0% , 100% {
+        transform : scale(1) ;
+    }
+    50% {
+        transform : scale(1.1,1.1) ; 
+    }
+}
+
+@keyframes wavy {
+    0%,40%,100%{
+        transform: translateY(0) ;
+    }
+    20% {
+        transform: translateY(-20px) ;
+    }
+}
+
+
+
+
+
+.gameOver{
+    border-radius: 10px;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    background: rgba(82, 79, 79, 0.3);
+    border: 1px solid rgba(248, 247, 247, 0.34);
+    width: 60%;
+    height: auto;
+    color: antiquewhite;
+    font-size: x-large;
+    text-align: center;
+    justify-content: center;
+    align-content: center;
+    position: absolute;
+    top: 60%;
+    left: 20%;
+    font-family: "Montserrat", sans-serif;
+}
+
+.gameOver span{
+    font-family: "Montserrat", sans-serif;
+    font-size: 3rem;
+    margin: auto;
+    font-weight: 100;
+    color: rgb(247, 247, 240);
+    letter-spacing: 10px;
 }
 
