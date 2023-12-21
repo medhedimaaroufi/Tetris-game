@@ -175,6 +175,7 @@ window.addEventListener('DOMContentLoaded',() => {
   $('.previous-grid').hide();
   $('.load-level').hide();
   $('.gameOver').hide();
+  $('.av').hide();
   
   function moveDown(){
     remove(line*GRID_WIDTH+col,random);
@@ -263,12 +264,18 @@ window.addEventListener('DOMContentLoaded',() => {
   let Start=document.querySelector('.start');
   Start.addEventListener('click',repeated);
 
+
+
   function repeated(){
     $('.grid').show();
     $('.previous-grid').show();
     $('.load-level').show();
+    $('.av').show();
+    document.querySelector('.Game').setAttribute('style','');
     started=true;
     var timerId = setInterval(moveDown, level);
+
+    
     Start.setAttribute('value','Restart');
     $('.dashboard .buttons').html('<input type="button" value="RESTART" class="restart button"><input type="button" value="PAUSE" class="pause button">')
     
@@ -354,31 +361,11 @@ function checkRow() {
     return l/10;
   }
 
-  function freeze(){
-    let stop=theTetrominoes[random][orient].some(index => (squares[(line+1)*GRID_WIDTH+col+index].className=='endGrid' || squares[(line+1)*GRID_WIDTH+col+index].className=='Freezed'));
-    if (stop){
-      theTetrominoes[random][orient].forEach(index => {
-        squares[line*GRID_WIDTH+col+index].setAttribute('class','Freezed');
-      });
-      score(checkRow());
-      line=0;
-      col=4;
-      orient=0;
-      random=nextrandom;
-      removeNext(nextrandom);
-      nextrandom=generate();
-      drawNext(nextrandom);
-    }
-  }
-
-
   let myScore=parseInt($('#score').val(),10);
   let myLines=0
 
 
-
-
-  function checkLevel(l) {
+  function checkLevel() {
     if(myLines%16==1) {
       $('.n16').show()
     }
@@ -398,13 +385,12 @@ function checkRow() {
         $('.n'+String(index)).hide();
       }
     }
+
   }
 
-
-  
   function score(l) {
     myLines+=l;
-    checkLevel(l);
+    checkLevel();
     checkRow();
     switch (l) {
       case 1:
@@ -424,6 +410,22 @@ function checkRow() {
     $('#lines').val(myLines);
   }
 
+  function freeze(){
+    let stop=theTetrominoes[random][orient].some(index => (squares[(line+1)*GRID_WIDTH+col+index].className=='endGrid' || squares[(line+1)*GRID_WIDTH+col+index].className=='Freezed'));
+    if (stop){
+      theTetrominoes[random][orient].forEach(index => {
+        squares[line*GRID_WIDTH+col+index].setAttribute('class','Freezed');
+      });
+      score(checkRow());
+      line=0;
+      col=4;
+      orient=0;
+      random=nextrandom;
+      removeNext(nextrandom);
+      nextrandom=generate();
+      drawNext(nextrandom);
+    }
+  }
 
 
   //TO DO: 21-12-2023
