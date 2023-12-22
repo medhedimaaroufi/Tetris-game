@@ -32,6 +32,7 @@ span{
     margin: auto;
     font-weight: 100;
     color: antiquewhite;
+    
 }
 
 .doNotShow{
@@ -70,6 +71,35 @@ table {
 
 .hisScore{
     width: 55px;
+}
+
+.cookies{
+    border-radius: 10px;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    background: rgba(82, 79, 79, 0.3);
+    border: 1px solid rgba(248, 247, 247, 0.34);
+    width: 50%;
+    height: auto;
+    color: antiquewhite;
+    font-size: x-large;
+    text-align: center;
+    justify-content: center;
+    align-content: center;
+    position: absolute;
+    top: 25%;
+    left: 25%;
+    font-family: "Montserrat", sans-serif;
+
+}
+
+.cookiesMessage{
+    letter-spacing: 5px;
+}
+
+#cookieMessage{
+    font-size: x-large;
+    font-family: "Montserrat", sans-serif;
 }
 
 .Rules{

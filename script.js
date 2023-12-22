@@ -1,9 +1,34 @@
 window.addEventListener('DOMContentLoaded',() => {
+  
+  $('.cookies').show();
+  
+  $('.Rules').hide();
+  cookies();
   $('.Game').hide();
   $('.close').click(()=>{
     $('.Rules').hide();
     $('.Game').show();
   });
+  function cookies() {
+    
+    let ind=0;
+    let o=true;
+    while (ind<localStorage.length && localStorage.key(ind)!='-2') {
+      if (ind==localStorage.length-1) o=false;
+      ind++;
+    }
+    if (o) {
+      $('.cookies').hide();
+      $('.Rules').show();
+      console.log('hello')
+    }
+    $('.cookiesbtn').on('click',() => {
+      localStorage.setItem('-2','');
+      $('.cookies').hide();
+      $('.Rules').show();
+    });
+  }
+  
   function doNotShow() {
     $('#doNotShow').change(() => { 
       localStorage.setItem('-1','');
@@ -20,6 +45,9 @@ window.addEventListener('DOMContentLoaded',() => {
     }
   }
   
+
+
+
   doNotShow();
   const GRID_WIDTH = 10
   const GRID_HEIGHT = 20
@@ -200,7 +228,7 @@ window.addEventListener('DOMContentLoaded',() => {
       if (e.keyCode===32 || e.keyCode===40)   //ArrowDown or space
         moveDown()
       }
-      if (myLines>1 && e.keyCode===88 && possibleToChange < 3 ) //press 
+      if (myLines>15 && e.keyCode===88 && possibleToChange < 5 ) //press 
         changeNextTet();
   }
 
