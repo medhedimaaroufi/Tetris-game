@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+    <head class="menu">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Tetris</title>
+        <script src="jquery.js"></script>
+        <script src="script.js"></script>
+        <link rel="stylesheet" href="style.css">
+        <link rel="icon" href="images/images.jpeg" type="image/x-icon">
+    </head>
+
+    
+    <body>
+
+
+        <header>
+
+            <audio src="audios/endGame1.mp3" id="endgame"></audio>
+            <audio src="audios/gameover2.mp3" id="gameover2"></audio>
+            <audio src="audios/Level Up Sound Effect .mp3" id="levelUp"></audio>
+            <audio src="audios/vaniche1.mp3" id="vaniche"></audio>
+
+            <div class="nav"></div>
+            <div class="navbar menu">
+                <ul class="navbar-list animated-text menu" >
+                    <li id="letsPlay"><a class="navbar-link menu" href="#aaa"  onclick="location.reload()">Game</a></li>
+                    <li><a class="navbar-link menu" href="#aaa" onclick=" $('.Game').hide() ; $('.Rules').show() ;$('.history').hide(); $('.copyright').hide();" >Rules</a></li>
+                    <li><a class="navbar-link menu" href="#aaa" onclick="  $('.Game').hide() ; $('.history').show();  $('.Rules').hide() ; $('.copyright').hide();">History</a></li>
+                    <li><a class="navbar-link menu" href="#aaa" id="copyright">Copyright</a></li>
+                </ul>
+            </div>
+            
+        </header>
+
+
+        <div class="cookies animated-text">
+            <div  class="cookiesMessage">
+                <p>This website uses <span id="cookieMessage" style="color: rgb(247, 4, 4);">cookies</span> to ensure you get the best experience on our website.</p>
+                <input type="button" value="Got it!" class="cookiesbtn button">
+            </div>
+        </div>
+
+
+        <div class="Rules animated-text">
+            <span >RULES</span>
+            <p class="rules"> Please use the <img src="images/button.png" alt="up" class="up"> key to rotate your tetromino. <br><br> <img src="images/button.png" alt="left" class="left">
+              and <img src="images/button.png" alt="right" class="right"> to move across the board. <br><br> Pressing <img src="images/button.space.png" alt="space" class="space"> will speed up the
+              drop. 
+              <br><br>Passing to the second level gives the permission to change the Upcoming Tetromino ONLY five times for each level by pressing <img src="images/X.png" alt="X" class="X">.
+            </p>
+            
+            <input type="button" value="Close" class="close button gameOverbtn ">
+            <br>
+            <input type="checkbox" name="doNotShow" id="doNotShow" value="1"> <span class="doNotShow">Do not show again</span> <br>
+        </div>
+
+
+        <div class="Game" style="position:absolute; top:30%; left: 35%;">
+            
+            <div class="welcome">
+                <span class="animated-text">HELLO WORLD</span><BR>
+                <SPAN class="animated-text2">TETRIS</SPAN>
+            </div>
+            
+            <main>
+                <div class="main">
+                    <div class="grid animated-text"></div>
+                    <div class="dashboard animated-text2" >
+                        <div class="previous-grid animated-text2"></div><br>
+                        <div class="av">
+                            <span class="score">SCORE</span><br>
+                            <input type="text" name="score" id="score" value="0" disabled><br>
+                            <span class="score">Your lines </span><br>
+                            <input type="text" name="lines" id="lines" value="0" disabled><br>
+                        </div>
+                        <div class="buttons" id="main">
+                            <input type="button" value="PLAY" class="start button gameOverbtn ">
+                        </div>
+                        <div class="high-score">
+                            <input type="text" name="myName" id="myName" class="animated-text" placeholder="Your name">
+                            <table class="listScore">
+                            </table>
+                        </div>
+                    </div>
+                </div><br>
+                <div class="load-level animated-text"></div>
+            </main>
+
+        </div>
+
+
+        <div class="gameOver">
+            <span>Ctrl+Z not available in <span style="color: rgb(247, 4, 4);">real</span> life </span><br><br>
+            <span style="font-weight:1000;">Game Over</span>
+        </div>
+
+
+        <div class="history" id="history">
+            <p>
+                Tetris, created by "Alexey Pajitnov" in 1984,originated in the Soviet Union. 
+                The puzzle game involves fitting falling tetromino shapes into a grid to form complete lines. 
+                Tetris gained global popularity after its inclusion with Nintendo's Game Boy in 1989. 
+                The name "Tetris" combines "tetromino" with "tennis," Pajitnov's favorite sport. 
+                The game's addictive simplicity and universal appeal led to its success. 
+                Tetris became a cultural icon, inspiring various versions on different platforms. 
+                Legal disputes over the rights to Tetris emerged during its early years. 
+                The game's enduring legacy is marked by its influence on puzzle gaming and its continued popularity across diverse gaming platforms.
+            </p>
+            <input type="button" value="Back" onclick=" $('.history').hide(); $('.Game').show();" class="button">
+        </div>
+
+        
+        <div class="copyright">
+            <span class="text1">TETRIS</span> 
+            <div class="about-us animated-text">
+                <div class="card">
+                    <br>
+                    <img src="images/hedi.jpg" alt="medhedimaaroufi" class="pic">
+                    <h2>Mohamed Hedi Maaroufi</h2>
+                    <a href="https://www.linkedin.com/in/mohamed-hedi-ma%C3%A2roufi-72a096228/" target="_blank" rel="noopener noreferrer"><img src="images/linkedin.png" alt="Linkedin" class="icon" ></a>
+                    <a href="https://github.com/medhedimaaroufi" target="_blank" rel="noopener noreferrer"><img src="images/github1.png" alt="GitHub" class="icon"></a>
+                    <a href="mailto:medhedimaaroufi@gmail.com"><img src="images/gmail.png" alt="Gmail" class="icon" ></a>
+                </div>
+                <div class="card">
+                    <br>
+                    <img src="images/karimen.jpg" alt="karimenbenromdhane" class="pic">
+                    <h2>Karimen Ben Romdhane</h2>
+                    <a href="https://www.linkedin.com/in/karimen-benromdhane-34b828296/" target="_blank" rel="noopener noreferrer"><img src="images/linkedin.png" alt="Linkedin" class="icon" ></a>
+                    <a href="https://github.com/karimenBR" target="_blank" rel="noopener noreferrer"><img src="images/github1.png" alt="GitHub" class="icon"></a>
+                    <a href="mailto:karimenbenromdhane55@gmail.com"><img src="images/gmail.png" alt="Gmail" class="icon" ></a>
+                </div>
+            </div>
+        </div>
+
+
+    </body>
+
+
+</html>
