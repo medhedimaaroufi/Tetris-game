@@ -14,8 +14,12 @@
             <span>RULES</span>
             <p class="rules"> Please use the <img src="images/button.png" alt="up" class="up"> key to rotate your tetromino. <br><br> <img src="images/button.png" alt="left" class="left">
               and <img src="images/button.png" alt="right" class="right"> to move across the board. <br><br> Pressing <img src="images/button.space.png" alt="space" class="space"> will speed up the
-              drop.</p>
+              drop.
+            </p>
+            
             <input type="button" value="Close" class="close button gameOverbtn ">
+            <br>
+            <input type="checkbox" name="doNotShow" id="doNotShow" value="1"> <span class="doNotShow">Do not show again</span> <br>
         </div>
         <div class="Game" style="position:absolute; top:30%; left: 35%;">
             
@@ -25,22 +29,28 @@
             </div>
             
             <main>
-                <div class="load-level animated-text"></div><br>
+                
                 <div class="main">
                     <div class="grid animated-text"></div>
                     <div class="dashboard animated-text2" >
                         <div class="previous-grid animated-text2"></div><br>
                         <div class="av">
-                            <span class="score">SCORE</span>
-                            <input type="text" name="score" id="score" value="0" disabled>
-                            <span class="score">Your lines </span>
-                            <input type="text" name="lines" id="lines" value="0" disabled>
+                            <span class="score">SCORE</span><br>
+                            <input type="text" name="score" id="score" value="0" disabled><br>
+                            <span class="score">Your lines </span><br>
+                            <input type="text" name="lines" id="lines" value="0" disabled><br>
                         </div>
                         <div class="buttons">
                             <input type="button" value="PLAY" class="start button gameOverbtn ">
                         </div>
+                        <div class="high-score">
+                            <input type="text" name="myName" id="myName" class="animated-text" placeholder="Your name">
+                            <table class="listScore">
+                            </table>
+                        </div>
                     </div>
-                </div>
+                </div><br>
+                <div class="load-level animated-text"></div>
             </main>
         </div>
         <div class="gameOver">

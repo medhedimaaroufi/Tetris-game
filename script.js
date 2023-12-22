@@ -4,7 +4,23 @@ window.addEventListener('DOMContentLoaded',() => {
     $('.Rules').hide();
     $('.Game').show();
   });
-
+  function doNotShow() {
+    $('#doNotShow').change(() => { 
+      localStorage.setItem('-1','');
+    });
+    let ind=0;
+    let o=true;
+    while (ind<localStorage.length && localStorage.key(ind)!='-1') {
+      if (ind==localStorage.length-1) o=false;
+      ind++;
+    }
+    if (o) {
+      $('.Rules').hide();
+      $('.Game').show();
+    }
+  }
+  
+  doNotShow();
   const GRID_WIDTH = 10
   const GRID_HEIGHT = 20
   const GRID_SIZE = GRID_WIDTH * GRID_HEIGHT
@@ -17,6 +33,7 @@ window.addEventListener('DOMContentLoaded',() => {
       'URL(images/purple_block.png)',
       'URL(images/pink_block.png)'
     ]
+  
   
   function createLoad() {
     var loadLevel=document.querySelector('.load-level');
@@ -45,15 +62,44 @@ window.addEventListener('DOMContentLoaded',() => {
       }
       var previous=document.querySelector('.previous-grid');
       for (let i = 0; i < 16; i++) {
-          let element = document.createElement('div');
-          previous.appendChild(element);
+        let element = document.createElement('div');
+        previous.appendChild(element);
       }
       return grid;
   }
   
+  function createHighScore() {
+    for (let index = 0; index < 5; index++) {
+      localStorage.setItem(String(index),'name');
+    }
+    let sortedIndex=[];
+    let max=localStorage.key(0);
+    let n=5*(localStorage.length>=5)+localStorage.length*(localStorage.length<5);
+    for (let j = 0 ; j< n; j++){
+      for (let i = 1; i < localStorage.length; i++) {
+        let INsortedIndex=sortedIndex.some(index => index == localStorage.key(i));
+        if (!INsortedIndex && parseInt(localStorage.key(i))>max)
+          max = localStorage.key(i);
+      }
+      sortedIndex[sortedIndex.length]=max;
+      max=parseInt(localStorage.key(0));
+    }
+    var ch=''
+    for (let i = 0; i < 5; i++) {
+      if (sortedIndex[i]>10) ch+='<tr><td class="hisName">' + (localStorage[sortedIndex[i]] +'</td><td class="hisScore">'+ sortedIndex[i]) + '</td></tr>';
+    }
+    $('.listScore').html(ch);
+    return sortedIndex;
+  }
+
+
   let loadLevel=createLoad();
   const grid = createGrid();
+  const sortedIndex=createHighScore();
   let squares = Array.from(grid.querySelectorAll('div'));
+  let level=1000;
+  let timerId=setInterval(null,level);
+  let possibleToChange=0;
 
   const iTetromino = [
       [GRID_WIDTH, GRID_WIDTH + 1, GRID_WIDTH + 2, GRID_WIDTH + 3],
@@ -154,6 +200,8 @@ window.addEventListener('DOMContentLoaded',() => {
       if (e.keyCode===32 || e.keyCode===40)   //ArrowDown or space
         moveDown()
       }
+      if (myLines>1 && e.keyCode===88 && possibleToChange < 3 ) //press 
+        changeNextTet();
   }
 
   document.addEventListener('keydown', control)
@@ -166,6 +214,7 @@ window.addEventListener('DOMContentLoaded',() => {
   let nextrandom=generate()
   let started=false;
   let paused=false;
+  let ovr=false;
   drawNext(nextrandom)
   let current=theTetrominoes[random]
   let col=3;
@@ -176,13 +225,24 @@ window.addEventListener('DOMContentLoaded',() => {
   $('.load-level').hide();
   $('.gameOver').hide();
   $('.av').hide();
+  $('#myName').hide();
+  const myName=document.getElementById('myName').value
   
   function moveDown(){
-    remove(line*GRID_WIDTH+col,random);
-    line++;
-    draw(line*GRID_WIDTH+col,random);
-    freeze();
-    gameOver();
+    if (!ovr){
+      remove(line*GRID_WIDTH+col,random);
+      line++;
+      draw(line*GRID_WIDTH+col,random);
+      freeze();
+      
+      ovr=gameOver();
+      if(ovr){
+        const myName=document.getElementById('myName').value
+        console.log(myName)
+        localStorage.setItem(myName,String(myScore));
+      }
+
+    }
   }
   
  
@@ -246,21 +306,35 @@ window.addEventListener('DOMContentLoaded',() => {
     }
   }
 
-  return false; // No risque 
-}
-
- function Rotate(){
-  remove(line*GRID_WIDTH+col,random);
-  if(!checkCollisionAfterRotation()){
-    orient = (orient + 1) % 4;
+    return false; // No risque 
   }
-  draw(line*GRID_WIDTH+col,random);
- }
 
+  function Rotate(){
+    remove(line*GRID_WIDTH+col,random);
+    if(!checkCollisionAfterRotation()){
+      orient = (orient + 1) % 4;
+    }
+    draw(line*GRID_WIDTH+col,random);
+  }
+
+  function store() {
+    if (document.getElementById('myName').value != '' && myScore >= sortedIndex[sortedIndex.length-1]){
+      if (!(sortedIndex.some(index => index == myScore)))
+        localStorage.removeItem(sortedIndex[sortedIndex.length-1]);
+      localStorage.setItem(String(myScore),document.getElementById('myName').value);
+    }
+  }
+  
+  document.addEventListener('keydown', function (e) {
+    if (e.keyCode==13) //enter
+      {
+        store();
+        $('#myName').hide();
+      }
+  });
 
   //Start & Restart
   const dashboard=$('.dashboard')
-  let level=1000;
   let Start=document.querySelector('.start');
   Start.addEventListener('click',repeated);
 
@@ -273,7 +347,7 @@ window.addEventListener('DOMContentLoaded',() => {
     $('.av').show();
     document.querySelector('.Game').setAttribute('style','');
     started=true;
-    var timerId = setInterval(moveDown, level);
+    timerId = setInterval(moveDown, level);
 
     
     Start.setAttribute('value','Restart');
@@ -282,6 +356,7 @@ window.addEventListener('DOMContentLoaded',() => {
     let x = 0;
     $('.restart').click(function (){
       if (++x >0) {
+        store();
         location.reload();
       }
     });
@@ -326,14 +401,19 @@ function gameOver() {
     if (i==17) over=false;
     i++;
   }
+
   if(over){
     $('.grid').hide();
     $('.previous-grid').hide();
     $('.pause').hide();
     $('.gameOver').show();
-    $('.restart').val('Ctrl+Z')
-    document.querySelector('.restart').classList.add('gameOverbtn')
+    console.log(sortedIndex)
+    if (sortedIndex[sortedIndex.length-1]< myScore && !sortedIndex.some(scr => scr == myScore)) $('#myName').show();
+    $('.restart').val('Ctrl+Z');
+    document.querySelector('.restart').classList.add('gameOverbtn');
+    return true;
   }
+  return false;
 }
 
 function checkRow() {
@@ -349,8 +429,6 @@ function checkRow() {
             square.classList.remove('Freezed');
             l++;
           });
-          //squares = [...squares.slice(0, i), ...squares.slice(i + GRID_WIDTH)];
-          //squares.forEach((square) => grid.insertBefore(square,grid.children[0]));
           const squaresRemoved = squares.splice(i,GRID_WIDTH) ;
           squares=squaresRemoved.concat(squares) ;
           squares.forEach(cell=>grid.appendChild(cell)) ; 
@@ -421,14 +499,43 @@ function checkRow() {
       col=4;
       orient=0;
       random=nextrandom;
+      let level1=level;
+      switchLevel()
+      if (level!=level1) {
+        possibleToChange=0;
+        clearInterval(timerId);
+        timerId=null;
+        timerId=setInterval(moveDown,level);
+      }
       removeNext(nextrandom);
       nextrandom=generate();
       drawNext(nextrandom);
     }
   }
 
+  function switchLevel() {
+    if (myLines>15 && myLines<= 30)
+      level=850;
+    else if(myLines>30 && myLines<= 45)
+      level=600;
+      else if(myLines>45 && myLines<=60 )
+        level=500;
+        else if(myLines>60 && myLines<=75 )
+          level=400;
+          else if(myLines>75 && myLines<=90 )
+            level=300;
+            else if(myLines>90 && myLines<=105 )
+              level=200;
+  }
 
-  //TO DO: 21-12-2023
+  function changeNextTet() {
+    possibleToChange++;
+    removeNext(nextrandom);
+    nextrandom=generate();
+    drawNext(nextrandom);
+  }
+
+  //TO DO: 22-12-2023
   //rotate
 
 }) 
