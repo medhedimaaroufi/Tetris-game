@@ -1,7 +1,5 @@
 window.addEventListener('DOMContentLoaded',() => {
   
-  $('.cookies').show();
-  
   $('.Rules').hide();
   cookies();
   $('.Game').hide();
@@ -9,6 +7,7 @@ window.addEventListener('DOMContentLoaded',() => {
     $('.Rules').hide();
     $('.Game').show();
   });
+
   function cookies() {
     
     let ind=0;
