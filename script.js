@@ -8,6 +8,8 @@ window.addEventListener('DOMContentLoaded',() => {
     $('.Game').show();
   });
 
+
+  
   function cookies() {
     
     let ind=0;
