@@ -301,8 +301,8 @@ img{
 }
 
 .grid div{
-    width: 25px;
-    height: 25px;
+    width: 24px;
+    height: 24px;
     border: 1px solid rgb(202, 194, 194);
     border-radius: 7px ;
 
@@ -348,17 +348,17 @@ img{
     height: 106px;
     display: flex;
     flex-wrap: wrap;
-    margin-left: 28%;
+    margin-left: 25%;
     margin-top: 10%;
 }
 
 
 
 .previous-grid div{
-    width: 25px;
-    height: 25px;
+    width: 24px;
+    height: 24px;
     border: 1px solid rgb(150, 148, 148);
-    border-radius: 10px;
+    border-radius: 7px;
 }
 
 .score{

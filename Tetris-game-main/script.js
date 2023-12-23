@@ -411,6 +411,7 @@ window.addEventListener('DOMContentLoaded',() => {
 
   function repeated(){
     $('.welcome').hide();
+    document.getElementById('start').play() ;
     $('.grid').show();
     $('.previous-grid').show();
     $('.load-level').show();
@@ -418,8 +419,6 @@ window.addEventListener('DOMContentLoaded',() => {
     document.querySelector('.Game').setAttribute('style','');
     started=true;
     timerId = setInterval(moveDown, level);
-
-    
     Start.setAttribute('value','Restart');
     $('.dashboard .buttons').html('<input type="button" value="RESTART" class="restart button"><input type="button" value="PAUSE" class="pause button">')
     
@@ -525,6 +524,7 @@ function checkRow() {
       for (let index = 16; index >= 0; index--) {
         $('.n'+String(index)).hide();
       }
+     
     }
 
   }
@@ -582,23 +582,23 @@ function checkRow() {
   function switchLevel() {
     if (myLines>15 && myLines<= 30){
       level=850;
-      getElementById('levelUp').play();
+      
     }
     else if(myLines>30 && myLines<= 45)
       {level=600;
-      getElementById('levelUp').play() ;}
+      }
       else if(myLines>45 && myLines<=60 )
         {level=500;
-        getElementById('levelUp').play() ;}
+        }
         else if(myLines>60 && myLines<=75 )
           {level=400;
-          getElementById('levelUp').play() ;}
+          }
           else if(myLines>75 && myLines<=90 )
             {level=300;
-            getElementById('levelUp').play() ;}
+            }
             else if(myLines>90 && myLines<=105 )
               {level=200;
-              getElementById('levelUp').play() ;}
+              }
   }
 
   function changeNextTet() {
@@ -610,6 +610,5 @@ function checkRow() {
 
   
   //TO DO: 22-12-2023
-  //rotate
-
+  //rotate (fok alik ya hedi)
 }) 
