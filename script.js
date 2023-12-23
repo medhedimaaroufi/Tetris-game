@@ -1,15 +1,97 @@
 window.addEventListener('DOMContentLoaded',() => {
-  
+  $('.notification').hide();
+  $('#letsPlay').hide();
+  $('.navbar').hide();
+  $('.nav').hover(
+    () => {
+      $('.navbar').show();
+      $('.navbar-list').show();
+    },
+    () => {
+      $('.navbar').hide();
+      $('.navbar-list').hide();
+    }
+  );
+  $('.navbar').hover(
+    () => {
+      $('.navbar').show();
+      $('.navbar-list').show();
+      $('.nav').hide();
+    },
+    () => {
+      $('.navbar').hide();
+      $('.navbar-list').hide();
+      $('.nav').show();
+    }
+  );
+  $('.history').hide() ;
   $('.Rules').hide();
+  $('.copyright').hide();
   cookies();
   $('.Game').hide();
   $('.close').click(()=>{
     $('.Rules').hide();
     $('.Game').show();
+    paused=false;
   });
 
+  function RuleShw() {
+    $('.Game').hide(); 
+    $('.Rules').show();
+    $('.history').hide();
+    $('.copyright').hide();
+    $('.doNotShow').hide();
+    $('#doNotShow').hide();
+    paused=true;
+  }
+  $('#rls').click(RuleShw);
 
+  function History() {
+    $('.Game').hide() ; 
+    $('.history').show();  
+    $('.Rules').hide() ; 
+    $('.copyright').hide();
+    paused=true;
+  }
+  $('#his').click(History)
+
+  function History(params) {
+    $('.Game').hide() ; 
+    $('.history').show();
+    $('.Rules').hide() ; 
+    $('.copyright').hide();
+    paused=true;
+  }
+
+  function copyright(){
+    paused=true;
+    $('.Game').hide(); 
+    $('.history').hide();
+    $('.Rules').hide();
+    $('.copyright').show();
+    $('.about-us').hide();
+    $('#letsPlay').show();
+    setTimeout(function() {
+      $('.about-us').show();
+    }, 2000);
+    
+  }
+  $('#copyright').click(copyright);
+
+  function backGame(){
+    $('.copyright').hide();
+    $('.Game').show();
+    paused=false;
+  }
   
+  $('#backGame').click(backGame);
+  
+  $('.back').click(()=>{
+    $('.history').hide();
+    $('.Game').show();
+    paused=false;
+  })
+
   function cookies() {
     
     let ind=0;
@@ -21,7 +103,6 @@ window.addEventListener('DOMContentLoaded',() => {
     if (o) {
       $('.cookies').hide();
       $('.Rules').show();
-      console.log('hello')
     }
     $('.cookiesbtn').on('click',() => {
       localStorage.setItem('-2','');
@@ -99,7 +180,7 @@ window.addEventListener('DOMContentLoaded',() => {
   
   function createHighScore() {
     for (let index = 0; index < 5; index++) {
-      localStorage.setItem(String(index),'name');
+      localStorage.setItem(index,'name');
     }
     let sortedIndex=[];
     let max=localStorage.key(0);
@@ -111,9 +192,9 @@ window.addEventListener('DOMContentLoaded',() => {
           max = localStorage.key(i);
       }
       sortedIndex[sortedIndex.length]=max;
-      max=parseInt(localStorage.key(0));
+      max=localStorage.key(0);
     }
-    var ch=''
+    var ch='';
     for (let i = 0; i < 5; i++) {
       if (sortedIndex[i]>10) ch+='<tr><td class="hisName">' + (localStorage[sortedIndex[i]] +'</td><td class="hisScore">'+ sortedIndex[i]) + '</td></tr>';
     }
@@ -229,7 +310,7 @@ window.addEventListener('DOMContentLoaded',() => {
       if (e.keyCode===32 || e.keyCode===40)   //ArrowDown or space
         moveDown()
       }
-      if (myLines>15 && e.keyCode===88 && possibleToChange < 5 ) //press 
+      if (myLines>15 && e.keyCode===88 && possibleToChange < 5 ) //press X
         changeNextTet();
   }
 
@@ -258,20 +339,20 @@ window.addEventListener('DOMContentLoaded',() => {
   const myName=document.getElementById('myName').value
   
   function moveDown(){
-    if (!ovr){
-      remove(line*GRID_WIDTH+col,random);
-      line++;
-      draw(line*GRID_WIDTH+col,random);
-      freeze();
-      
-      ovr=gameOver();
-      if(ovr){
-        const myName=document.getElementById('myName').value
-        console.log(myName)
-        localStorage.setItem(myName,String(myScore));
-      }
+    if (!paused)
+      if (!ovr){
+        remove(line*GRID_WIDTH+col,random);
+        line++;
+        draw(line*GRID_WIDTH+col,random);
+        freeze();
+        
+        ovr=gameOver();
+        if(ovr){
+          const myName=document.getElementById('myName').value;
+          localStorage.setItem(myName,String(myScore));
+        }
 
-    }
+      }
   }
   
  
@@ -329,7 +410,12 @@ window.addEventListener('DOMContentLoaded',() => {
 
     // Check collision with other tet
     const isOccupied = squares[nextPosition].classList.contains('Freezed');
-
+    if (isAtLeftEdge || isAtRightEdge){
+      $('.notification').show();
+      setTimeout(() => {
+        $('.notification').hide();
+      },1000);
+    }
     if (isAtLeftEdge || isAtRightEdge || isOccupied) {
       return true; // Collision detected
     }
@@ -347,7 +433,7 @@ window.addEventListener('DOMContentLoaded',() => {
   }
 
   function store() {
-    if (document.getElementById('myName').value != '' && myScore >= sortedIndex[sortedIndex.length-1]){
+    if (document.getElementById('myName').value != '' && myScore > sortedIndex[sortedIndex.length-1]){
       if (!(sortedIndex.some(index => index == myScore)))
         localStorage.removeItem(sortedIndex[sortedIndex.length-1]);
       localStorage.setItem(String(myScore),document.getElementById('myName').value);
@@ -370,6 +456,7 @@ window.addEventListener('DOMContentLoaded',() => {
 
 
   function repeated(){
+    $('.welcome').hide();    
     $('.grid').show();
     $('.previous-grid').show();
     $('.load-level').show();
@@ -394,6 +481,7 @@ window.addEventListener('DOMContentLoaded',() => {
       paused=true;
       $('.grid').hide();
       $('.previous-grid').hide();
+      $('.welcome').show();
       clearInterval(timerId);
       timerId=null;
       $('.pause').val('RESUME');
@@ -411,17 +499,6 @@ window.addEventListener('DOMContentLoaded',() => {
     
   }
 
-  function filterRow(row) {
-    for (let index = 0; index < GRID_WIDTH; index++) {
-      squares[row*GRID_WIDTH+index].remove();
-
-      const div= document.createElement('div');
-      var existingChild = grid.firstChild;
-      grid.insertBefore(div, existingChild);
-    }
-  }
-  
-
 
 function gameOver() {
   let i=GRID_WIDTH+3;
@@ -436,7 +513,8 @@ function gameOver() {
     $('.previous-grid').hide();
     $('.pause').hide();
     $('.gameOver').show();
-    console.log(sortedIndex)
+    document.getElementById('endgame').play() ;
+    document.getElementById('gameover2').play() ;
     if (sortedIndex[sortedIndex.length-1]< myScore && !sortedIndex.some(scr => scr == myScore)) $('#myName').show();
     $('.restart').val('Ctrl+Z');
     document.querySelector('.restart').classList.add('gameOverbtn');
@@ -456,6 +534,7 @@ function checkRow() {
           row.forEach((square) => {
             square.style.backgroundImage = 'none';
             square.classList.remove('Freezed');
+            document.getElementById('vaniche').play() ;
             l++;
           });
           const squaresRemoved = squares.splice(i,GRID_WIDTH) ;
@@ -517,6 +596,8 @@ function checkRow() {
     $('#lines').val(myLines);
   }
 
+  
+
   function freeze(){
     let stop=theTetrominoes[random][orient].some(index => (squares[(line+1)*GRID_WIDTH+col+index].className=='endGrid' || squares[(line+1)*GRID_WIDTH+col+index].className=='Freezed'));
     if (stop){
@@ -530,7 +611,9 @@ function checkRow() {
       random=nextrandom;
       let level1=level;
       switchLevel()
+ 
       if (level!=level1) {
+        document.getElementById('levelUp').play();
         possibleToChange=0;
         clearInterval(timerId);
         timerId=null;
@@ -543,18 +626,18 @@ function checkRow() {
   }
 
   function switchLevel() {
-    if (myLines>15 && myLines<= 30)
-      level=850;
+    if (myLines>15 && myLines<= 30){
+      level=850;}
     else if(myLines>30 && myLines<= 45)
-      level=600;
+      {level=600;}
       else if(myLines>45 && myLines<=60 )
-        level=500;
+        {level=500;}
         else if(myLines>60 && myLines<=75 )
-          level=400;
+          {level=400;}
           else if(myLines>75 && myLines<=90 )
-            level=300;
+            {level=300;}
             else if(myLines>90 && myLines<=105 )
-              level=200;
+              {level=200;}
   }
 
   function changeNextTet() {
@@ -564,9 +647,8 @@ function checkRow() {
     drawNext(nextrandom);
   }
 
+  
   //TO DO: 22-12-2023
   //rotate
 
 }) 
-
-

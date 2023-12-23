@@ -65,12 +65,12 @@ table {
 }
 
 .hisName{
-    width: 175px;
+    width: 135px;
     height: 30px;
 }
 
 .hisScore{
-    width: 55px;
+    width: 80px;
 }
 
 .cookies{
@@ -116,17 +116,19 @@ table {
     justify-content: center;
     align-content: center;
     position: absolute;
-    top: 25%;
+    top: 4%;
     left: 25%;
     font-family: "Montserrat", sans-serif;
 }
 
 img{
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     margin-bottom: -15px;
     border-radius: 15%;
 }
+
+
 
 .up{
     rotate: 90deg;
@@ -138,6 +140,115 @@ img{
 
 .space{
     width: 120px;
+}
+
+.menu{
+    display: block;
+}
+
+.navbar-btn{
+    position: absolute;
+    
+    left: 2%;
+    gap: 4rem;
+    list-style: none;
+    color: #aebbc7;
+    border-radius: 10px;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(15px);
+    background: rgba(134, 133, 138, 0.3);
+    border: 1px solid rgba(248, 247, 247, 0.34);
+    justify-content: center;
+    align-content: center;
+    text-align: justify;
+    width: auto;
+    height: auto;
+
+}
+
+.navbar {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top:5%;
+    left: 2%;
+    gap: 4rem;
+    list-style: none;
+    color: #aebbc7;
+    border-radius: 10px;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(15px);
+    background: rgba(75, 73, 73, 0.3);
+    border: 1px solid rgba(248, 247, 247, 0.34);
+    width: 14%;
+    height: 90%;
+    justify-content: center;
+    align-content: center;
+    text-align: justify;
+
+}
+.nav {
+    position: absolute;
+    top: 48%;
+    left: 2%;
+    border-radius: 50%;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(15px);
+    background: rgba(99, 185, 185, 0.137);
+    border: 1px solid rgba(248, 247, 247, 0.34);
+    width: 50px;
+    height: 50px;
+    animation: pulse1 3s infinite;
+}
+
+@keyframes pulse1 {
+    0% , 100% {
+        background: rgba(247, 248, 248, 0.301);
+    }
+    50% {
+        transform : scale(0,1.1) ; 
+        background: rgb(179, 149, 94);
+    }
+}
+
+  
+.navbar-link:link,
+.navbar-link:visited {
+    display: inline-block;
+    text-decoration: none;
+    font-size: 2rem;
+    font-weight: 500;
+    color: var(--text-color);
+    transition: all 0.4s ease;
+    letter-spacing: 0.1rem;
+}
+  
+.navbar-link:hover,
+.navbar-link:active {
+    color: rgb(245, 205, 130);
+    font-style: italic;
+    font-size: xxx-large ;
+    text-shadow: 4px  4px 9px rgba(240, 227, 227, 0.5);
+}
+  
+.history{
+    border-radius: 10px;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(15px);
+    background: rgba(75, 73, 73, 0.3);
+    border: 1px solid rgba(248, 247, 247, 0.34);
+    width: 50%;
+    height: auto;
+    color: rgb(255, 255, 255);
+    font-size: x-large;
+    text-align: center ;
+    justify-content: center;
+    align-content: center;
+    position: absolute;
+    top: 3%;
+    left: 25%;
+    font-family: "Montserrat", sans-serif;
+    letter-spacing: 3px;
 }
 
 .load-level{
@@ -181,7 +292,7 @@ img{
     -webkit-backdrop-filter: blur(4px);
     background: rgba(255,255,255,0.30);
     border: 1px solid rgba(255,255,255,0.34);
-    width: 321px;
+    width: 270px;
     height: auto;
     display: flex;
     flex-wrap: wrap;
@@ -190,10 +301,10 @@ img{
 }
 
 .grid div{
-    width: 30px;
-    height: 30px;
+    width: 25px;
+    height: 25px;
     border: 1px solid rgb(202, 194, 194);
-    border-radius: 10px;
+    border-radius: 7px ;
 
 }
 
@@ -220,7 +331,7 @@ img{
     background: rgba(255,255,255,0.30);
     border: 1px solid rgba(255,255,255,0.34);
     border-radius: 10px;
-    width: 300px;
+    width: 250px;
     margin: 5px;
     justify-content: center;
     align-content: center;
@@ -233,8 +344,8 @@ img{
     -webkit-backdrop-filter: blur(4px);
     background: rgba(82, 79, 79, 0.3);
     border: 1px solid rgba(248, 247, 247, 0.34);
-    width: 129px;
-    height: 129px;
+    width: 108px;
+    height: auto;
     display: flex;
     flex-wrap: wrap;
     margin-left: 28%;
@@ -244,8 +355,8 @@ img{
 
 
 .previous-grid div{
-    width: 30px;
-    height: 30px;
+    width: 25px;
+    height: 25px;
     border: 1px solid rgb(150, 148, 148);
     border-radius: 10px;
 }
@@ -322,6 +433,8 @@ img{
     animation: wavy 7s infinite;
 }
 
+
+
 .gameOverbtn {
     animation: pulse 0.75s infinite;
     
@@ -363,10 +476,9 @@ img{
     justify-content: center;
     align-content: center;
     position: absolute;
-    top: 72%;
+    top: 64%;
     left: 20%;
 }
-
 
 
 .gameOver span{
@@ -377,5 +489,137 @@ img{
     color: rgb(247, 247, 240);
     letter-spacing: 10px;
 }
+
+.copyright{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+
+}
+
+
+
+.text1 { 
+    color: rgb(247, 246, 250); 
+    font-size: 70px; 
+    font-weight: 700; 
+    letter-spacing: 8px; 
+    margin-bottom: 20px; 
+    animation: text 3s 1; 
+    display: block; 
+    width: 100%; 
+} 
+
+@keyframes text { 
+    0% { 
+        color: black; 
+        margin-bottom: -40px; 
+    } 
+
+    30% { 
+        letter-spacing: 25px; 
+        margin-bottom: -40px; 
+    } 
+
+    85% { 
+        letter-spacing: 8px; 
+        margin-bottom: -40px; 
+    } 
+   
+} 
+.card{
+    border-radius: 10px;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    background: rgba(82, 79, 79, 0.3);
+    border: 1px solid rgba(248, 247, 247, 0.34);
+    height: 400px;
+    color: antiquewhite;
+    font-size: x-large;
+    text-align: center;
+    justify-content: center;
+    align-content: center;
+    font-family: "Montserrat", sans-serif;
+    animation: card ease;
+    width: 40%;
+    margin: 1%;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+.card:hover{
+    transform : scale(1.1,1.1) ; 
+}
+
+@keyframes card { 
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.about-us{
+    display: flex;
+    flex-direction: row ;
+    justify-content: center;
+    align-content: center;
+    
+}
+
+.icon{
+    width: 30px;
+    height: 30px;
+    border-radius: 20%;
+    align-items: center;
+    margin: 15px;
+}
+
+.icon:hover{
+    width: 38px;
+    height: 38px;
+    margin: 11px;
+}
+
+.pic{
+    width: 200px;
+    height: auto;
+    margin-bottom: -15px;
+    border-radius: 50%;
+    align-items: center;
+}
+
+.card h2{
+    font-size: 1.6rem;
+    font-style: italic;
+    font-family: 'Times New Roman', Times, serif;
+    letter-spacing: 2px;
+}
+
+.notification{
+    border-radius: 10px;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(15px);
+    background: rgba(75, 73, 73, 0.3);
+    border: 1px solid rgba(248, 247, 247, 0.34);
+    width: 50%;
+    height: auto;
+    color: rgb(255, 255, 255);
+    font-size: x-large;
+    text-align: center ;
+    justify-content: center;
+    align-content: center;
+    position: absolute;
+    top: 3%;
+    left: 25%;
+    font-family: "Montserrat", sans-serif;
+    letter-spacing: 3px;
+    animation: fadeIn ease-in-out;
+}
+
+
+
 
 
