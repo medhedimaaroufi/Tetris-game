@@ -2,6 +2,7 @@ window.addEventListener('DOMContentLoaded',() => {
   $('.notification').hide();
   $('#letsPlay').hide();
   $('.navbar').hide();
+  $('.nav').hide();
   $('.nav').hover(
     () => {
       $('.navbar').show();
@@ -38,7 +39,8 @@ window.addEventListener('DOMContentLoaded',() => {
   function RuleShw() {
     $('.Game').hide(); 
     $('.Rules').show();
-    $('.history').hide();
+  $('#letsPlay').hide();
+  $('.history').hide();
     $('.copyright').hide();
     $('.doNotShow').hide();
     $('#doNotShow').hide();
@@ -48,20 +50,14 @@ window.addEventListener('DOMContentLoaded',() => {
 
   function History() {
     $('.Game').hide() ; 
-    $('.history').show();  
+  $('#letsPlay').hide();
+  $('.history').show();  
     $('.Rules').hide() ; 
     $('.copyright').hide();
     paused=true;
   }
   $('#his').click(History)
 
-  function History(params) {
-    $('.Game').hide() ; 
-    $('.history').show();
-    $('.Rules').hide() ; 
-    $('.copyright').hide();
-    paused=true;
-  }
 
   function copyright(){
     paused=true;
@@ -81,6 +77,8 @@ window.addEventListener('DOMContentLoaded',() => {
   function backGame(){
     $('.copyright').hide();
     $('.Game').show();
+    $('#letsPlay').hide();
+
     paused=false;
   }
   
@@ -103,11 +101,14 @@ window.addEventListener('DOMContentLoaded',() => {
     if (o) {
       $('.cookies').hide();
       $('.Rules').show();
+      $('.nav').show();
+      
     }
     $('.cookiesbtn').on('click',() => {
       localStorage.setItem('-2','');
       $('.cookies').hide();
       $('.Rules').show();
+      $('.nav').show();
     });
   }
   
@@ -503,8 +504,8 @@ window.addEventListener('DOMContentLoaded',() => {
 function gameOver() {
   let i=GRID_WIDTH+3;
   let over=true;
-  while (i<18 && !squares[i].classList.contains('Freezed')) {
-    if (i==17) over=false;
+  while (i<16 && !squares[i].classList.contains('Freezed')) {
+    if (i==15) over=false;
     i++;
   }
 
@@ -516,7 +517,7 @@ function gameOver() {
     document.getElementById('endgame').play() ;
     document.getElementById('gameover2').play() ;
     if (sortedIndex[sortedIndex.length-1]< myScore && !sortedIndex.some(scr => scr == myScore)) $('#myName').show();
-    $('.restart').val('Ctrl+Z');
+    $('.restart').val('Retry');
     document.querySelector('.restart').classList.add('gameOverbtn');
     return true;
   }
