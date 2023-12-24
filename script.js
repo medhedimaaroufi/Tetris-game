@@ -406,16 +406,16 @@ window.addEventListener('DOMContentLoaded',() => {
     const nextPosition = line * GRID_WIDTH + col + index;
 
     // Check collision with walls
-    const isAtLeftEdge = nextPosition % GRID_WIDTH === 0;
-    const isAtRightEdge = (nextPosition + 1) % GRID_WIDTH === 0;
-
+    const isAtLeftEdge = (nextPosition )% GRID_WIDTH === 9 && col < 4;
+    const isAtRightEdge = (nextPosition ) % GRID_WIDTH === 0 && col > 6;
+    console.log(isAtLeftEdge,isAtRightEdge);
     // Check collision with other tet
     const isOccupied = squares[nextPosition].classList.contains('Freezed');
     if (isAtLeftEdge || isAtRightEdge){
       $('.notification').show();
       setTimeout(() => {
         $('.notification').hide();
-      },1000);
+      },1500);
     }
     if (isAtLeftEdge || isAtRightEdge || isOccupied) {
       return true; // Collision detected
