@@ -1,4 +1,6 @@
 window.addEventListener('DOMContentLoaded',() => {
+  document.getElementById('opening').play() ;
+
   $('.notification').hide();
   $('#letsPlay').hide();
   $('.navbar').hide();
@@ -33,14 +35,16 @@ window.addEventListener('DOMContentLoaded',() => {
   $('.close').click(()=>{
     $('.Rules').hide();
     $('.Game').show();
+    document.getElementById('opening').play() ;
     paused=false;
   });
 
   function RuleShw() {
+    document.getElementById('click').play() ;
     $('.Game').hide(); 
     $('.Rules').show();
-  $('#letsPlay').hide();
-  $('.history').hide();
+    $('#letsPlay').hide();
+    $('.history').hide();
     $('.copyright').hide();
     $('.doNotShow').hide();
     $('#doNotShow').hide();
@@ -49,9 +53,10 @@ window.addEventListener('DOMContentLoaded',() => {
   $('#rls').click(RuleShw);
 
   function History() {
+    document.getElementById('click').play() ;
     $('.Game').hide() ; 
-  $('#letsPlay').hide();
-  $('.history').show();  
+    $('#letsPlay').hide();
+    $('.history').show();  
     $('.Rules').hide() ; 
     $('.copyright').hide();
     paused=true;
@@ -60,6 +65,7 @@ window.addEventListener('DOMContentLoaded',() => {
 
 
   function copyright(){
+    document.getElementById('click').play() ;
     paused=true;
     $('.Game').hide(); 
     $('.history').hide();
@@ -77,8 +83,9 @@ window.addEventListener('DOMContentLoaded',() => {
   function backGame(){
     $('.copyright').hide();
     $('.Game').show();
+    document.getElementById('opening').play() ;
     $('#letsPlay').hide();
-
+    document.getElementById('click').play() ;
     paused=false;
   }
   
@@ -87,6 +94,8 @@ window.addEventListener('DOMContentLoaded',() => {
   $('.back').click(()=>{
     $('.history').hide();
     $('.Game').show();
+    document.getElementById('opening').play() ;
+    document.getElementById('click').play() ;
     paused=false;
   })
 
@@ -105,6 +114,7 @@ window.addEventListener('DOMContentLoaded',() => {
       
     }
     $('.cookiesbtn').on('click',() => {
+      document.getElementById('click').play() ;
       localStorage.setItem('-2','');
       $('.cookies').hide();
       $('.Rules').show();
@@ -113,7 +123,8 @@ window.addEventListener('DOMContentLoaded',() => {
   }
   
   function doNotShow() {
-    $('#doNotShow').change(() => { 
+    document.getElementById('click').play() ;
+    $('#doNotShow').change(() => { document.getElementById('click').play() ; 
       localStorage.setItem('-1','');
     });
     let ind=0;
@@ -125,6 +136,7 @@ window.addEventListener('DOMContentLoaded',() => {
     if (o) {
       $('.Rules').hide();
       $('.Game').show();
+      document.getElementById('opening').play() ;
     }
   }
   
@@ -211,6 +223,7 @@ window.addEventListener('DOMContentLoaded',() => {
   let level=1000;
   let timerId=setInterval(null,level);
   let possibleToChange=0;
+  let myLines=0;
 
   const iTetromino = [
       [GRID_WIDTH, GRID_WIDTH + 1, GRID_WIDTH + 2, GRID_WIDTH + 3],
@@ -457,6 +470,10 @@ window.addEventListener('DOMContentLoaded',() => {
 
 
   function repeated(){
+    document.getElementById('click').play();
+    
+    switchLevel();
+
     $('.welcome').hide();    
     $('.grid').show();
     $('.previous-grid').show();
@@ -473,12 +490,14 @@ window.addEventListener('DOMContentLoaded',() => {
     let x = 0;
     $('.restart').click(function (){
       if (++x >0) {
+        document.getElementById('click').play() ;
         store();
         location.reload();
       }
     });
 
     $('.pause').click(function () {
+      document.getElementById('click').play() ;
       paused=true;
       $('.grid').hide();
       $('.previous-grid').hide();
@@ -515,7 +534,6 @@ function gameOver() {
     $('.pause').hide();
     $('.gameOver').show();
     document.getElementById('endgame').play() ;
-    document.getElementById('gameover2').play() ;
     if (sortedIndex[sortedIndex.length-1]< myScore && !sortedIndex.some(scr => scr == myScore)) $('#myName').show();
     $('.restart').val('Retry');
     document.querySelector('.restart').classList.add('gameOverbtn');
@@ -549,7 +567,6 @@ function checkRow() {
   }
 
   let myScore=parseInt($('#score').val(),10);
-  let myLines=0
 
 
   function checkLevel() {
@@ -562,6 +579,8 @@ function checkRow() {
       $('.n15').show();
     }
     if(myLines%16>2){
+      $('.n0').show();
+      $('.n15').show();
       $('.n16').hide();
       for (let index = 1; index < myLines%16-1; index++) {
         $('.n'+String(index)).show()
@@ -572,7 +591,6 @@ function checkRow() {
         $('.n'+String(index)).hide();
       }
     }
-
   }
 
   function score(l) {
@@ -627,19 +645,34 @@ function checkRow() {
   }
 
   function switchLevel() {
-    if (myLines>15 && myLines<= 30){
-      level=850;}
-    else if(myLines>30 && myLines<= 45)
-      {level=600;}
-      else if(myLines>45 && myLines<=60 )
-        {level=500;}
-        else if(myLines>60 && myLines<=75 )
-          {level=400;}
-          else if(myLines>75 && myLines<=90 )
-            {level=300;}
-            else if(myLines>90 && myLines<=105 )
-              {level=200;}
-  }
+    if (myLines<=15){
+      $('.load-level-text').html('Level 1');}
+    else if (myLines>15 && myLines<= 30){
+        level=850;
+        $('.load-level-text').html('Level 2');
+      }
+      else if(myLines>30 && myLines<= 45)
+        {level=600;
+        $('.load-level-text').html('Level 3');
+        }
+        else if(myLines>45 && myLines<=60 )
+          {level=500;
+            $('.load-level-text').html('Level 4');
+          }
+          else if(myLines>60 && myLines<=75 )
+            {level=400;
+              $('.load-level-text').html('Level 5');
+            }
+            else if(myLines>75 && myLines<=90 )
+              {level=300;
+                $('.load-level-text').html('Level 6');
+              }
+              else if(myLines>90 && myLines<=105 )
+                {level=200;
+                  $('.load-level-text').html('Level 7');
+                }
+                else if (myLines>105) $('.load-level-text').html('Level +999');
+    }
 
   function changeNextTet() {
     possibleToChange++;
@@ -647,9 +680,5 @@ function checkRow() {
     nextrandom=generate();
     drawNext(nextrandom);
   }
-
   
-  //TO DO: 24-12-2023
-  //rotate
-
 }) 

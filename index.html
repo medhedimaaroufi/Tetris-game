@@ -12,16 +12,17 @@
         <link rel="icon" href="images/images.jpeg" type="image/x-icon">
     </head>
 
-    
+
     <body>
 
 
         <header>
 
-            <audio src="audios/endGame1.mp3" id="endgame"></audio>
-            <audio src="audios/gameover2.mp3" id="gameover2"></audio>
+            <audio src="audios/GameOver.mp3" id="endgame"></audio>
             <audio src="audios/Level Up Sound Effect .mp3" id="levelUp"></audio>
             <audio src="audios/vaniche1.mp3" id="vaniche"></audio>
+            <audio src="audios/opening.mp3" id="opening"></audio>
+            <audio src="audios/click.mp3" id="click"></audio>
 
             <div class="nav"></div>
             <div class="navbar menu animated-text">
@@ -76,17 +77,21 @@
                             <span class="score">Your lines </span><br>
                             <input type="text" name="lines" id="lines" value="0" disabled><br>
                         </div>
+                        <span class="load-level-text"></span><br>
+
                         <div class="buttons" id="main">
-                            <input type="button" value="PLAY" class="start button gameOverbtn ">
+                            <input type="button" value="PLAY" class="start button gameOverbtn">
                         </div>
                         <div class="high-score">
                             <input type="text" name="myName" id="myName" class="animated-text" placeholder="Your name">
                             <table class="listScore">
                             </table>
                         </div>
+
                     </div>
                 </div><br>
                 <div class="load-level animated-text"></div>
+                
             </main>
             <div class="gameOver">  
                 <span>Ctrl+Z not available in <span style="color: rgb(247, 4, 4);">real</span> life </span><br><br>

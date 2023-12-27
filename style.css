@@ -619,7 +619,9 @@ img{
     animation: fadeIn ease-in-out;
 }
 
-
-
-
-
+.load-level-text{
+    font-size: xx-large;
+    font-weight: 400;
+    margin: 10%;
+    color: antiquewhite;
+}
