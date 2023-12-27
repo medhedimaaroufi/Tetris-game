@@ -1,6 +1,4 @@
 window.addEventListener('DOMContentLoaded',() => {
-  document.getElementById('opening').play() ;
-
   $('.notification').hide();
   $('#letsPlay').hide();
   $('.navbar').hide();
@@ -490,6 +488,7 @@ window.addEventListener('DOMContentLoaded',() => {
     let x = 0;
     $('.restart').click(function (){
       if (++x >0) {
+        document.getElementById('opening').play() ;
         document.getElementById('click').play() ;
         store();
         location.reload();
